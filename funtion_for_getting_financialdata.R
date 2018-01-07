@@ -58,7 +58,7 @@ myexport <- function(...) {
 # Write function for getting financial data of a ticker
 #--------------------------------------------------------
 
-get_symbols <- function(symbol, from, to) {
+get_symbols_VND <- function(symbol, from, to) {
   url <- "https://www.vndirect.com.vn/portal/thong-ke-thi-truong-chung-khoan/lich-su-gia.shtml"
   lastPage <- getLastPage(url, symbol, from, to)
   cname <- c("date",
@@ -130,7 +130,7 @@ get_symbols <- function(symbol, from, to) {
 #------------------------
 
 # Collect data: 
-get_symbols("vnm", "2017-12-01", today()) -> vnm
+get_symbols_VND("vnm", "2017-12-01", today()) -> vnm
 vnm %>% head()
 
 # Plot open price: 
@@ -141,10 +141,10 @@ vnm %>% ggplot(aes(date, open)) + geom_line()
 #-------------------------------------------------------------
 
 
-multi_get_symbols <- function(symbol_list, from, to) {
+multi_get_symbols_VND <- function(symbol_list, from, to) {
   my_df <- data.frame()
   for (i in symbol_list) {
-    df1 <- get_symbols(i, from = from, to = to)
+    df1 <- get_symbols_VND(i, from = from, to = to)
     my_df <- rbind(my_df, df1)
   }
   return(my_df)
@@ -155,7 +155,7 @@ multi_get_symbols <- function(symbol_list, from, to) {
 #------------------------
 
 my_symbols <- c("vcb", "ssi", "vnm", "fpt")
-FANG <- multi_get_symbols(my_symbols, "2015-01-01", "2017-12-31")
+FANG <- multi_get_symbols_VND(my_symbols, "2015-01-01", "2017-12-31")
 
 
 FANG %>%
